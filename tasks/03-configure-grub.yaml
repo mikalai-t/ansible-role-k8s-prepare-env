@@ -28,16 +28,24 @@
     - inventory_hostname not in ['localhost', '127.0.0.1']
     - _grub_config is defined and _grub_config is changed
 
-- name: "03.3.(local) - restart the system if required"
-  shell:
-    cmd: "nohup bash -c 'sleep 5 && shutdown -r now' &"
-  args:
-    warn: no
-  become: yes
-  async: 0
-  poll: 0
-  ignore_errors: yes
-  check_mode: no
+- block:
+  - name: "03.3.(local) - restart the system if required"
+    shell:
+      cmd: "nohup bash -c 'sleep 5 && shutdown -r now' &"
+    args:
+      warn: no
+    become: yes
+    async: 0
+    poll: 0
+    ignore_errors: yes
+    check_mode: no
+
+  - name: "03.4.(local) - make a pause to prevent playbook run another task"
+    pause:
+      seconds: 60
+    ignore_errors: yes
+    check_mode: no
+  # block condition
   when:
     - inventory_hostname in ['localhost', '127.0.0.1']
     - _grub_config is defined and _grub_config is changed
