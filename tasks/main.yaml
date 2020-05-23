@@ -7,3 +7,5 @@
 - include_tasks: 03-configure-grub.yaml
 
 - include_tasks: 04-configure-core-vars.yaml
+
+- include_tasks: 05-disable-swap.yaml
