@@ -1,5 +1,20 @@
 ---
 
-- name: "{{ role_name }}.{{ ansible_play_name }}.01 - first task"
+- name: "{{ role_name }}.{{ ansible_play_name }}.01 - print some info"
   debug:
-    msg: "{{ k8s_node_type }}"
+    msg: "Running startup script on [{{ k8s_node_type }}] node type..."
+
+- name: "{{ role_name }}.{{ ansible_play_name }}.02 - configure tty appearance"
+  template:
+    src: tty.appearance.j2
+    dest: "{{ item.dest }}/.bash_aliases"
+    owner: "{{ item.owner|default(0) }}"
+    group: "{{ item.group|default(0) }}"
+  become: True
+  with_items:
+    - dest: /root
+      become: True
+    - dest: /home/ubuntu
+      become: True
+      owner: ubuntu
+      group: ubuntu
