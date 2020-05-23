@@ -1,3 +1,5 @@
 ---
 
-- include_tasks: 01-prepare_env.yml
+- include_tasks: 01-prepare_env.yaml
+
+- include_tasks: 02-configure_grub.yaml

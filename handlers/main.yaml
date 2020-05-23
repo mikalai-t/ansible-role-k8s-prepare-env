@@ -1,0 +1,10 @@
+---
+
+- name: "grub-update-config"
+  shell:
+    cmd: update-grub
+  args:
+    warn: no
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+  become: yes

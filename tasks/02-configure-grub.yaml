@@ -1,0 +1,26 @@
+---
+
+- name: "02.1 - make sure grub.d directory is created"
+  file:
+    path: "{{ __k8s_grub_d_dir }}"
+    state: directory
+  become: yes
+
+- name: "02.2 - configure grub boot-loader"
+  copy:
+    content: |
+      GRUB_CMDLINE_LINUX="${GRUB_CMDLINE_LINUX} cgroup_enable=memory swapaccount=1"
+    dest: "{{ __k8s_grub_d_conf_file }}"
+  register: _grub_config
+  become: yes
+  check_mode: no
+  notify:
+    - grub-update-config
+
+- meta: flush_handlers
+
+- name: "02.3 - restart the system if required"
+  reboot:
+    msg: "WARNING: a grub config has been changed recently - restart in order to apply all the changes!"
+  become: yes
+  check_mode: no
