@@ -19,8 +19,24 @@
 
 - meta: flush_handlers
 
-- name: "02.3 - restart the system if required"
+- name: "02.3.(remote) - restart the system if required"
   reboot:
     msg: "WARNING: a grub config has been changed recently - restart in order to apply all the changes!"
   become: yes
   check_mode: no
+  when:
+    - inventory_hostname not in ['localhost', '127.0.0.1']
+    - _grub_config is defined and _grub_config is changed
+
+- name: "02.3.(local) - restart the system if required"
+  shell:
+    cmd: "nohup bash -c 'sleep 5 && shutdown -r now' &"
+  args:
+    warn: no
+  become: yes
+  async: 0
+  poll: 0
+  ignore_errors: yes
+  check_mode: no
+  when:
+    - _grub_config is defined and _grub_config is changed
