@@ -1,0 +1,5 @@
+---
+
+- name: "{{ role_name }}.{{ ansible_play_name }}.01 - first task"
+  debug:
+    msg: "{{ k8s_node_type }}"

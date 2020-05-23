@@ -1,0 +1,30 @@
+---
+  # Variables precedence (since Ansible version 2.x):
+  # (*) - role defaults [Tasks defined outside of a role will see the last role’s defaults.]
+  #     - inventory file or script group vars [Variables defined in inventory file or provided by dynamic inventory.]
+  #     - inventory group_vars/all
+  #     - playbook group_vars/all
+  #     - inventory group_vars/*
+  #     - playbook group_vars/*
+  #     - inventory file or script host vars [Variables defined in inventory file or provided by dynamic inventory.]
+  #     - inventory host_vars/*
+  #     - playbook host_vars/*
+  #     - host facts / cached set_facts [When created with set_facts’s cacheable option, variables will have the high
+  #                                      precedence in the play, but will be the same as a host facts precedence when
+  #                                      they come from the cache.]
+  #     - inventory host_vars/*
+  #     - playbook host_vars/*
+  #     - host facts
+  #     - play vars
+  #     - play vars_prompt
+  #     - play vars_files
+  #     - role vars (defined in role/vars/main.yml)
+  #     - block vars (only for tasks in block)
+  #     - task vars (only for the task)
+  #     - include_vars
+  #     - set_facts / registered vars
+  #     - role (and include_role) params
+  #     - include params
+  #     - extra vars (always win precedence)
+
+k8s_node_type: worker
