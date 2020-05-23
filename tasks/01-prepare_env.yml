@@ -6,7 +6,7 @@
 
 - name: "{{ role_name }}.{{ ansible_play_name }}.02 - configure tty appearance"
   template:
-    src: tty.appearance.j2
+    src: bash.aliases.j2
     dest: "{{ item.dest }}/.bash_aliases"
     owner: "{{ item.owner|default(0) }}"
     group: "{{ item.group|default(0) }}"
