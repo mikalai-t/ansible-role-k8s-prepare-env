@@ -6,15 +6,15 @@
 
 - name: "{{ role_name }}.{{ ansible_play_name }}.02 - configure tty appearance"
   template:
-    src: bash.aliases.j2
-    dest: "{{ item.dest }}/.bash_aliases"
+    src: bash.aliases.sh
+    dest: "{{ item.dest }}"
     owner: "{{ item.owner|default(0) }}"
     group: "{{ item.group|default(0) }}"
   become: True
   with_items:
-    - dest: /root
+    - dest: /root/.bashrc
       become: True
-    - dest: /home/ubuntu
+    - dest: /home/ubuntu/.bash_aliases
       become: True
       owner: ubuntu
       group: ubuntu
