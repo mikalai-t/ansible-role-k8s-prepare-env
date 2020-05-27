@@ -9,7 +9,7 @@
 - name: "03.2 - configure grub boot-loader"
   copy:
     content: |
-      GRUB_CMDLINE_LINUX="${GRUB_CMDLINE_LINUX} cgroup_enable=memory swapaccount=1"
+      GRUB_CMDLINE_LINUX="${GRUB_CMDLINE_LINUX} cgroup_enable=memory cgroup_memory=1 swapaccount=1"
     dest: "{{ __k8s_grub_d_conf_file }}"
   register: _grub_config
   become: yes
