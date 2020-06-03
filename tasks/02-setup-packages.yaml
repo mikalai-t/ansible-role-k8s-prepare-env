@@ -1,7 +1,7 @@
 ---
 
-- name: "02.1 - install some necessary packages"
+- name: "02.1 - install some necessary packages from the repos"
   apt:
-    name: "{{ __k8s_node_packages|select()|list }}"
+    name: "{{ __k8s_node_packages|flatten(1)|select()|list }}"
     state: latest
   become: yes

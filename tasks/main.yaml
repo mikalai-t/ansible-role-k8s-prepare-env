@@ -9,3 +9,5 @@
 - include_tasks: 04-configure-core-vars.yaml
 
 - include_tasks: 05-disable-swap.yaml
+  when:
+    - k8s_node_type|lower == 'worker'
