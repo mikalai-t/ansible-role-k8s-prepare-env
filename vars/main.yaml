@@ -11,4 +11,6 @@ __k8s_grub_d_dir: /etc/default/grub.d
 __k8s_grub_d_conf_file: "{{ __k8s_grub_d_dir }}/90-k8s-node.cfg"
 
 __k8s_sysctl_d_dir: /etc/sysctl.d
-__k8s_sysctl_d_conf_file: "{{ __k8s_sysctl_d_dir }}/90-k8s-node.conf"
+__k8s_sysctl_d_conf_file: "{{ __k8s_sysctl_d_dir }}/99-kubernetes-cri.conf"
+
+__k8s_modprobe_load_d_dir: /etc/modules-load.d
