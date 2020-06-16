@@ -4,10 +4,12 @@
 
 - include_tasks: 02-setup-packages.yaml
 
-- include_tasks: 03-configure-grub.yaml
+- include_tasks: 03-setup-machine-id.yaml
 
-- include_tasks: 04-configure-core-vars.yaml
+- include_tasks: 04-configure-grub.yaml
 
-- include_tasks: 05-disable-swap.yaml
+- include_tasks: 05-configure-core-vars.yaml
+
+- include_tasks: 06-disable-swap.yaml
   when:
     - k8s_node_type|lower == 'worker'

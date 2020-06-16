@@ -1,6 +1,6 @@
 ---
 
-- name: "04.1.1 - make sure necessary kernel modules are enabled to start on boot"
+- name: "05.1.1 - make sure necessary kernel modules are enabled to start on boot"
   copy:
     content: |
       {{ item }}
@@ -10,7 +10,7 @@
     - overlay
     - br_netfilter
 
-- name: "04.1.2 - make sure required modules are configure to be loaded with specified parameters"
+- name: "05.1.2 - make sure required modules are configure to be loaded with specified parameters"
   modprobe:
     name: "{{ item }}"
     state: present
@@ -19,7 +19,7 @@
     - overlay
     - br_netfilter
 
-- name: "04.2 - setup sysctl variables"
+- name: "05.2 - setup sysctl variables"
   sysctl:
     name: "{{ item.key }}"
     state: present

@@ -1,13 +1,13 @@
 ---
 
-- name: "05.1 - remove swap entry from /etc/fstab"
+- name: "06.1 - remove swap entry from /etc/fstab"
   mount:
     name: swap
     fstype: swap
     state: absent
   become: yes
 
-- name: "04.2 - disable swap"
+- name: "06.2 - disable swap"
   shell:
     cmd: swapoff -a
   args:

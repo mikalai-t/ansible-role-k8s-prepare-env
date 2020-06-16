@@ -1,12 +1,12 @@
 ---
 
-- name: "03.1 - make sure grub.d directory is created"
+- name: "04.1 - make sure grub.d directory is created"
   file:
     path: "{{ __k8s_grub_d_dir }}"
     state: directory
   become: yes
 
-- name: "03.2 - configure grub boot-loader"
+- name: "04.2 - configure grub boot-loader"
   copy:
     content: |
       GRUB_CMDLINE_LINUX="${GRUB_CMDLINE_LINUX} cgroup_enable=memory cgroup_memory=1 swapaccount=1 net.ifnames=0 biosdevname=0"
@@ -19,7 +19,7 @@
 
 - meta: flush_handlers
 
-- name: "03.3.(remote) - restart the system if required"
+- name: "04.3.(remote) - restart the system if required"
   reboot:
     msg: "WARNING: a grub config has been changed recently - restart in order to apply all the changes!"
   become: yes
@@ -29,7 +29,7 @@
     - _grub_config is defined and _grub_config is changed
 
 - block:
-  - name: "03.3.(local) - restart the system if required"
+  - name: "04.3.(local) - restart the system if required"
     shell:
       cmd: "nohup bash -c 'sleep 5 && shutdown -r now' &"
     args:
@@ -40,7 +40,7 @@
     ignore_errors: yes
     check_mode: no
 
-  - name: "03.4.(local) - make a pause to prevent playbook run another task"
+  - name: "04.4.(local) - make a pause to prevent playbook run another task"
     pause:
       seconds: 60
     ignore_errors: yes

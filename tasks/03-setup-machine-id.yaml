@@ -1,0 +1,28 @@
+---
+
+- name: "03.1 - check if /etc/machine-id file is present"
+  stat:
+    path: "/etc/machine-id"
+    get_attributes: yes
+    get_checksum: yes
+    get_mime: no
+  become: yes
+  check_mode: no
+  register: _machine_id_file
+
+- name: "03.2 - create empty /etc/machine-id file if it couldn't be found"
+  file:
+    path: /etc/machine-id
+    state: touch
+  become: yes
+  when:
+    - _machine_id_file.stat.exists is defined and not _machine_id_file.stat.exists
+
+- name: "03.3 - make sure dbus machine-id is linked to /etc/machine-id"
+  file:
+    src: /etc/machine-id
+    dest: /var/lib/dbus/machine-id
+    state: link
+  become: yes
+  when:
+    - _machine_id_file.stat.exists is defined and not _machine_id_file.stat.exists
