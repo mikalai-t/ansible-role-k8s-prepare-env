@@ -5,8 +5,10 @@ __k8s_play_dir: /node-init
 __k8s_node_packages:
   - procps
   - ethtool
+  - conntrack
+  - ipset
   # The 'socat' binary enables support for the kubectl `port-forward` command.
-  - "{{ ['socat', 'conntrack', 'ipset', 'bridge-utils'] if k8s_node_type|lower == 'worker' else [] }}"
+  - "{{ ['socat', 'bridge-utils'] if k8s_node_type|lower == 'worker' else [] }}"
 
 __k8s_grub_d_dir: /etc/default/grub.d
 __k8s_grub_d_conf_file: "{{ __k8s_grub_d_dir }}/90-k8s-node.cfg"
